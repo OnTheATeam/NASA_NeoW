@@ -5,6 +5,8 @@ from asteroids import Asteroids
 from plot import AsteroidPlot
 
 def main():
+    # Run script from the command line like this:
+    # "python3 create_vis.py <YOUR API KEY>"
     parser = argparse.ArgumentParser()
     parser.add_argument('api_key', help='NASA API key')
     args = parser.parse_args()

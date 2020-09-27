@@ -1,4 +1,7 @@
+from astropy.time import Time
+
 from datetime import date
+import datetime
 import requests
 
 class Asteroids:
@@ -24,9 +27,15 @@ class Asteroids:
 
         for neo in neos[date_key]:
             name = neo['name']
-            close_approach_epoch = neo['close_approach_data'][0]['close_approach_date_full']
+
+            # Let's convert TDB time to UTC time using Astropy
+            close_approach_epoch = datetime.datetime.strptime(neo['close_approach_data'][0]['close_approach_date_full'], '%Y-%b-%d %H:%M')
+            close_approach_epoch = Time(close_approach_epoch, scale='tdb')
+            close_approach_epoch = str(close_approach_epoch.tt)
+
             miss_miles = neo['close_approach_data'][0]['miss_distance']['miles']
             diameter_miles = neo['estimated_diameter']['miles']['estimated_diameter_max']
-            asteroid_list.append((name, close_approach_epoch, miss_miles, diameter_miles))
+            url = neo['nasa_jpl_url']
+            asteroid_list.append((name, close_approach_epoch, miss_miles, diameter_miles, url))
 
         return asteroid_list
