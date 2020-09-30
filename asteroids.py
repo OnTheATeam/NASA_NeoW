@@ -29,6 +29,10 @@ class Asteroids:
             name = neo['name']
 
             # Let's convert TDB time to UTC time using Astropy
+            # Skip this NEO if we don't have an approach time
+            if neo['close_approach_data'][0]['close_approach_date_full'] is None:
+                continue
+    
             close_approach_epoch = datetime.datetime.strptime(neo['close_approach_data'][0]['close_approach_date_full'], '%Y-%b-%d %H:%M')
             close_approach_epoch = Time(close_approach_epoch, scale='tdb')
             close_approach_epoch = str(close_approach_epoch.tt)
