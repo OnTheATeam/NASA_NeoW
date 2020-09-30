@@ -32,7 +32,6 @@ class AsteroidPlot:
         # Users will be able to click on each circle to view the NASA's page for each NEO
         urls = [url for (name, miss_time, miss_dist, dia, url) in neos_list]
         urls.append('https://moon.nasa.gov/')  # Moon website!
-        print(urls)
 
         # Let's make the NEOs coming close to Earth red and the
         # ones farthest from Earth green
